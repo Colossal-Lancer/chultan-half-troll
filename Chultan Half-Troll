@@ -1,0 +1,52 @@
+var iFileName = "Chultan Half-Troll.js";
+RequiredSheetVersion(12.999);
+
+SourceList.D={
+	name : "Chultan Half-Troll",
+	abbreviation : "CHF:BJ",
+	group : "Homebrew",
+	date : "2018/11/05"
+};
+
+RaceList["chultan half-troll"] = {
+	regExpSearch : /^((?=.*half-troll)(?=.*chultan))*$/i,
+	name : "Chultan Half-Troll",
+	source : ["CHF:BJ", 1],
+	plural : "Chultan Half-Trolls",
+	sortname : "Chultan Half-Troll",
+	size : 3,
+	speed : { walk : { spd : 30, enc : 20 }
+	},
+	languageProfs : ["Common", "Giant"],
+	vision : [["Darkvision", 60]],
+	skills : ["Intimidation"],
+	age : " reach adulthood at around 14 and live less than 100 years",
+	height : " range from 6 to 8 feet tall (5'10\" + 2d12+2\")",
+	weight : " weigh between 240 and 300 lb (175 + 2d12 \xD7 2d6 lb)",
+	heightMetric : " are between 2 and 2,5 metres tall (190 + 5d12 cm)",
+	weightMetric : " weigh between 110 and 135 kg (80 + 5d12 \xD7 4d6 / 10 kg)",
+	improvements : "Chultan Half-Troll: +2 Dexterity, +1 Wisdom;",
+	scores : [0, 2, 0, 0, 1, 0],
+	trait : "Chultan Half-Troll (+2 Dexterity, +1 Wisdom)" + (typePF ? "\n" : " ") + "Natural Hunter: You have proficiency in Survival.\nTroll Regeneration: You have a pool of hit points equal to you character level that can be used to heal yourself as a bonus action.\nBerserking: Once per long rest, you can use an action to awaken primal spirits from within. You ignore difficult terrain and deal bonus damage on attacks and spells once per turn equal to your proficiency bonus. This lasts for 1 minute\nPowerful Build: I count as one size larger when determining my carrying capacity and the weight I can push, drag, or lift.",
+	eval : "tDoc.getField('Carrying Capacity Multiplier').value *= 2;",
+	removeeval : "tDoc.getField('Carrying Capacity Multiplier').value /= 2;",
+	features : {
+		"troll regeneration" : {
+			name : "Troll Regeneration",
+			usages : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+			minlevel : 1,
+			recovery : "long rest",
+			action : ["bonus action", ""]
+		},
+		"beserking" : {
+			name : "Berserking",
+			usages : 1,
+			minlevel : 1,
+			recovery : "long rest",
+			additional : ["+2 damage", "+2 damage", "+2 damage", "+2 damage", "+3 damage", "+3 damage", "+3 damage", "+3 damage", "+4 damage", "+4 damage", "+4 damage", "+4 damage", "+4 damage", "+4 damage", "+4 damage", "+4 damage", "+4 damage", "+4 damage", "+4 damage", "+4 damage"],
+			action : ["action", " (start)"],
+			eval : "AddAction('bonus action', 'Beserking (end)', 'being a Chultan Half-Troll');",
+			removeeval : "RemoveAction('bonus action', 'Berserking (end)');"
+		}
+	}
+};
